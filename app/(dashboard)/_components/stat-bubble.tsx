@@ -76,8 +76,8 @@ export default function StatBubbles(){
                 </div>
             </div>
             <div className=" w-full flex gap-5 flex-wrap">
-                {financialData.map(data=>
-                    <StatBubble {...data} period={period} />
+                {financialData.map((data,i)=>
+                    <StatBubble key={i} {...data} period={period} />
                 )}
             </div>
         </div>

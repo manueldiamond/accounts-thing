@@ -1,8 +1,6 @@
 import AccountOverviewChart from "../_components/acct-overview-chart";
 import StatBubbles from "../_components/stat-bubble";
 import ActivityLog from "../_components/activity-log";
-import { SelectInput } from "@/components/inputs";
-import Table from "@/components/table";
 import TransactionRecordsSummary from "../_components/transaction-records-summary";
 
 export default function page() {

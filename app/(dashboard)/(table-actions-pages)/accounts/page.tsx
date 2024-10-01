@@ -105,6 +105,7 @@ const AddAccount = ({ close }: { close: () => void }) => {
       <div className="flex flex-col gap-3 pb-4 mx-auto w-max">
         {inputs.map((input) =>
           <Input
+            key={input.name}
             onChange={(val) => setValue(input.name, val)}
             hook={register(input.name)}
             className={{ 
@@ -182,9 +183,7 @@ const AddAcctRecord = () => {
       options: ["TaxCode1", "TaxCode2"],
     }
   ];
-  const { register, handleSubmit, setValue } = useForm<{
-
-  }>()
+  const { register, handleSubmit, setValue } = useForm()
   const onSubmit = () => {
 
   }
@@ -199,9 +198,9 @@ const AddAcctRecord = () => {
           </div>
           <div className=" flex flex-col gap-5 w-full">
             {[inputs1, inputs2].map(
-              inputs => (
-                <div className="flex gap-[65px] ">
-                  {inputs.map(input => <Input className={"w-full min-w-[146px]"} {...input} />)}
+              (inputs,i) => (
+                <div key={i} className="flex gap-[65px] ">
+                  {inputs.map((input) => <Input key={input.name} className={"w-full min-w-[146px]"} {...input} />)}
                 </div>
               )
             )}
@@ -267,37 +266,6 @@ const acctdata = [
   }
 ]
 
-
-const AccountsTable = () => {
-  const prettifiedData = acctdata.map(({ Status, ...data }) => (
-    {
-      ...data,
-      "Status": <div className={`px-3 py-[9px] rounded-xl w-max mx-auto ${Status === 'Active' ? "bg-purple-highlight text-white" : "text-head bg-light-texts"} `}>{Status}</div>
-    }
-  ))
-  return (
-    <>
-      <div className="centered gap-[6px] w-max px-9 py-4">
-        <span className="size-5 flex">{filterIcon}</span>
-        <input type="text" placeholder="Search by type/ID/Desc" className="p-2 bg-dark-white outline-none rounded-md" />
-        <span className="size-5 flex">{searchIcon}</span>
-      </div>
-      <Table
-        selectable
-        headings={[
-          "ID",
-          "Description",
-          "AccountType",
-          <div className="text-center w-full">Status</div>,
-          "Date"]}
-        data={prettifiedData}
-        fields={['id', "Description", "Account Type", "Status", "Date",]}
-      />
-    </>
-  )
-}
-
-
 export default function Home() {
   const  {setupTable,selectedAction,clearSelectedAction} = useActionContext()
   useEffect(()=>{
@@ -306,7 +274,7 @@ export default function Home() {
         "ID",
         "Description",
         "AccountType",
-        <div className="text-center w-full">Status</div>,
+        <div key={"account-status?"} className="text-center w-full">Status</div>,
         "Date"],
       data:acctdata.map(({Status:status,...data})=>({...data,"status": <div className={`px-3 py-[9px] rounded-xl w-max mx-auto ${status === 'Active' ? "bg-purple-highlight text-white" : "text-head bg-light-texts"} `}>{status}</div>})),
 

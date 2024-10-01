@@ -1,3 +1,5 @@
+import React  from "react"
+
 
 const PercentNotice=({percent=0, period = 'month'})=>{
     const changes=!percent?'No changes':(percent)>=0?'Increased':'decreased'

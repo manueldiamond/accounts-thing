@@ -44,17 +44,17 @@ const Table = <T extends TableRow>({
   onClickRow,
   classNames = {}
 }: TableProps<T>) => {
-  const [selected, setSelected] = useState<Array<any> | 'ALL'>([]);
+  const [selected, setSelected] = useState<T["id"][] | 'ALL'>([]);
 
   const toggleSelectAll = () => {
     setSelected(selected === 'ALL' ? [] : 'ALL');
   };
 
-  const toggleSelectRow = (id: string | number) => {
-    setSelected((selected) => {
+  const toggleSelectRow = (id: T["id"]) => {
+    setSelected(selected => {
       const selectedArray = selected === 'ALL' ? data.map(({ id }) => id) : selected;
-      const updatedArray = selectedArray.includes(id)
-        ? selectedArray.filter((i) => i !== id)
+      const updatedArray = selectedArray.includes(id as any)
+        ? selectedArray.filter((i:any) => i !== id)
         : [...selectedArray, id];
 
       return updatedArray;

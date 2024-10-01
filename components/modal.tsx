@@ -8,14 +8,14 @@ import HeaderClose from "./a-header"
 import CloseButton from "./close-button"
 
 
-const Modal = ({ centerHeading, heading = 'Modal',empty ,children, open=false, setOpen=(state:any)=>{}}:{
+const Modal = ({ centerHeading, heading = 'Modal',empty ,children, open=false, setOpen=(state?:boolean)=>{}}:{
     heading?:string;
     centerHeading?:boolean;
     open:boolean
     setOpen:Function;
     empty?:boolean;
 }&ReactChildren)  => {
-    const [modalOpen,setModalOpen] = typeof children==='function'? useState(false):[open,setOpen]
+    const [modalOpen,setModalOpen] = [open,setOpen]
     const ref = useClickOut(()=>setModalOpen(false),[modalOpen],)
     return (
         <AnimatePresence>

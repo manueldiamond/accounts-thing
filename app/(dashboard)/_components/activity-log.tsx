@@ -18,7 +18,7 @@ export default function ActivityLog(){
             <h6 className="text- pb-[14px]">Activity log</h6>
             <div className="flex flex-col gap-5">
                 {activities.map(activity=>
-                    <div className="log-item group h-[28px] w-full flex items-center">
+                    <div key={activity} className="log-item group h-[28px] w-full flex items-center">
                         <div className="mr-1 bg-purple-highlight h-full w-[2px] rounded-full"/>
                         <p className="border-b group-last:border-none border-solid px-1 text-[14px] text-baby-text">{activity}</p>
                     </div>

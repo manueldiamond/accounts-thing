@@ -83,12 +83,12 @@ const ActionList = () => {
   const {setSelectedAction,selectedAction,table}=useActionContext()
   return (
     <div className="flex">
-    {allActions.map(actionset => (
-        <div className="  border-light px-3.5 centered border-t-0 border-b last:rounded-br-xl last:rounded-tr-xl border-r">
+    {allActions.map((actionset,i) => (
+        <div key={i} className="  border-light px-3.5 centered border-t-0 border-b last:rounded-br-xl last:rounded-tr-xl border-r">
         {actionset.map(({ icon, text }) => (
-            <button className={` px-3.5 h-full py-4 rounded-lg cursor-pointer centered max-w-[64px] gap-1.5 flex flex-col ${selectedAction===text?'bg-light-texts ':'hover:bg-light '}`} onClick={()=>setSelectedAction(text as SelectedAction)}>
-            <span className="centered size-6 ">{icon}</span>
-            {text}
+            <button key={text} className={` px-3.5 h-full py-4 rounded-lg cursor-pointer centered max-w-[64px] gap-1.5 flex flex-col ${selectedAction===text?'bg-light-texts ':'hover:bg-light '}`} onClick={()=>setSelectedAction(text as SelectedAction)}>
+              <span className="centered size-6 ">{icon}</span>
+              {text}
             </button>))}
         </div>))}
         

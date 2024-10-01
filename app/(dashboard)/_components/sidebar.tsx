@@ -54,7 +54,7 @@ export default function SideBar(){
             <Logo className=' w-max py-[10px] px-[29px] !justify-start'/>
             <div className="border-t flex flex-col py-3 gap-6">
                 {sidebarItems.map(item=>
-                    <SideBarItem link={item.link} active={isActive(item.link)} title={item.text} icon={item.icon} chevron="right"/>)}
+                    <SideBarItem key={item.link} link={item.link} active={isActive(item.link)} title={item.text} icon={item.icon} chevron="right"/>)}
             </div>
             <div className="flex-1"/>
             <button className="p-1 my-[99px] border-light-text rounded-[12px] border-solid " >

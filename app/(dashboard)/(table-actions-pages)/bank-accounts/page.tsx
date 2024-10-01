@@ -111,7 +111,7 @@ const bankAccounts: BankAccount[] = [
 ];
 
 
-export default function page() {
+export default function Page() {
   const  {setupTable,selectedAction,clearSelectedAction} = useActionContext()
   
   useEffect(()=>{
@@ -120,13 +120,13 @@ export default function page() {
         "Bank",
         "Account Name",
         "Account Type",
-        <div className="text-center w-full">Status</div>,
+        <div key={"Acct-Staus"} className="text-center w-full">Status</div>,
         "Balance"],
       data:bankAccounts.map(
           ({status,...data})=>(
             { ...data,
               "status": 
-                <div className={`px-3 py-[9px] rounded-xl w-max mx-auto ${status === 'Active' ? "bg-purple-highlight text-white" : "text-head bg-light-texts"} `}
+                <div key={data.id+'-status'} className={`px-3 py-[9px] rounded-xl w-max mx-auto ${status === 'Active' ? "bg-purple-highlight text-white" : "text-head bg-light-texts"} `}
                 >
                   {status}
                 </div>
