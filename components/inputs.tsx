@@ -10,7 +10,7 @@ type BaseInputProps=Omit<Omit<InputProps,'label'>,'type'>
 type ExtraInputProps=Partial<{
   customOption: (option: OptionType) => React.ReactNode;
   defaultValue: string;
-  onChange: (value: string|number|null|undefined ) => void;
+  onChange: ((e:any)=>void)|Function;
   hook: object;
   className?: string|InputClassNameType;
 
