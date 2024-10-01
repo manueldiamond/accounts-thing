@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input{
+  @apply outline-none;
+}
+h1,
+h2,
+h3,h6,
+.heading {
+  @apply font-wsans font-semibold;
+}
+h1{
+  @apply text-2xl;
+}
+h6{
+  @apply text-[19px];
+}
+
+.flex-between{
+  @apply flex justify-between;
+}
+.centered {
+  @apply flex justify-center items-center;
+}
+
+
+.Mild{
+  @apply text-warning-dark;
+  
+}
+.Severe{
+  @apply text-error;
+}
+
+.Mild .icon,.Mild.icon{
+  @apply text-warning;
+}
+
+.Normal{
+  @apply text-black
+}
+
+.btn.xs,.btn.sm{
+  @apply text-[12px] py-1 px-3 gap-2 rounded;
+}
+.btn.md{
+  @apply text-[14px] py-[6px] px-3 gap-2 rounded;
+}
+.btn.lg,.btn.xl{
+  @apply text-[16px] py-[9px] px-4 gap-2 rounded-lg;
+}
+.btn.xl{
+  @apply py-[13px];
+}
+
+.btn{
+  @apply font-medium flex justify-between;
+}
+/* .btn.primary{ @apply bg-} */
+
+.btn.primary{
+  @apply bg-base text-white;
+}
+
+.btn.ghost{
+  @apply hover:bg-light
+}
+.btn.ghost{
+  @apply border-solid border border-inactive text-para;
+}
+
+.icon-btn{
+  
+}
+
+
+.sign-out-shadow{
+  @apply transition-all hover:text-white text-[15px] font-medium;
+  box-shadow: 0px 0px 0px 4px #FFFFFF, 0px 0px 0px 5px rgba(151, 71, 255, 0.3), inset 0px 0px 4px #FFFFFF, inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+.sign-out-shadow:hover{
+  background: linear-gradient(90.61deg, #605DFF 28.26%, #A168FF 66.69%);
+  box-shadow: 0px 0px 0px 4px #FFFFFF, 0px 0px 0px 5px rgba(151, 71, 255, 0.3), inset 0px 0px 4px #FFFFFF, inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+*{
+  --baby-text:#6D6D6D;
+  --light-purple:#8A84FF;
+}
