@@ -4,7 +4,6 @@ import { useClickOut } from "@/hooks"
 import { ReactChildren } from "@/types"
 import { AnimatePresence,motion } from "framer-motion"
 import { useState } from "react"
-import HeaderClose from "./a-header"
 import CloseButton from "./close-button"
 
 
