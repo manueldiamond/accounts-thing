@@ -50,7 +50,7 @@ export type ButtonProps = {
   /**
    * Function to be called when the button is clicked.
    */
-  onClick?: (e?: any) => any;
+  onClick?: (e?: any) => any|void;
 
   /**
    * Can be 'plus', 'check'
@@ -170,6 +170,7 @@ export interface TableProps<T extends TableRow> {
     headerCell: string;
     [key: string]: string;
   }>;
+  selectState?:ExternalState<T["id"][] | 'ALL'>;
 }
 
 

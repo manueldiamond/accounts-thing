@@ -1,5 +1,6 @@
 'use client'
 import { TableRow, TableProps } from "@/d.types";
+import { useExternalState } from "@/hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { data } from "framer-motion/client";
 import React, { useState } from "react";
@@ -55,8 +56,9 @@ const Table = <T extends TableRow>({
   classNames = {},
   formatRows,
   formatCells,
+  selectState
 }: TableProps<T>) => {
-  const [selected, setSelected] = useState<T["id"][] | 'ALL'>([]);
+  const [selected, setSelected] = useExternalState<T["id"][] | 'ALL'>(selectState,[]);
 
   const toggleSelectAll = () => {
     setSelected(selected === 'ALL' ? [] : 'ALL');
