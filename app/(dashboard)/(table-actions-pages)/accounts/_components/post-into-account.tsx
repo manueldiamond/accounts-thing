@@ -65,7 +65,7 @@ const PostIntoAccount = forwardRef(({},ref:ForwardedRef<InputsTableDataType|unde
             useSuggestions={fieldname==='account_id'?useSearchAccountHeaders:undefined}
           />
       ])),[inputsTableData])
-  
+    
     return(
       <div className="w-[610px]  border-inactive border-solid border flex  h-max rounded-lg"> 
           <Table
@@ -73,13 +73,14 @@ const PostIntoAccount = forwardRef(({},ref:ForwardedRef<InputsTableDataType|unde
             data={Object.values(inputsTableData)}
             fields={dataFields}
             formatCells={formatCells}
+            
             classNames={{
               cell:'text-center !py-0',
               headerCell:'text-center',
               row:"rounded-lg",
               table:"rounded-lg"
             }}
-            headings={['Period History', 'Debit','Credit' ,'Trans. Description', 'Running Balance']}
+            headings={['Period History', 'Debit','Credit' ,'Trans. Description', 'Running Balance'].map(val=><div className="text-nowrap">{val}</div>)}
           />
       </div>
     )
