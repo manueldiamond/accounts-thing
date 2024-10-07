@@ -56,7 +56,7 @@ export default function Home() {
         open={!!modalData}
         setOpen={clearSelectedAction} 
         heading={modalData?.heading}>
-          <AddAccount close={close}/>
+          <AddAccount close={clearSelectedAction}/>
       </Modal>
     </>
   );

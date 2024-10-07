@@ -58,6 +58,7 @@ const PostIntoAccount = forwardRef(({},ref:ForwardedRef<InputsTableDataType|unde
               fieldname==="account_id"?
                 "suggestion":"number"
             }
+            placeholder={"-"}
             className={
               {input:"!border-none !w-full !h-full !bg-transparent pl-2"}
             }

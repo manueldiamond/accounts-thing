@@ -99,6 +99,7 @@ const AddAccount = ({ close }: { close: () => void }) => {
                 error={errors[input.name]}
                 key={input.name}
                 setValue={setValue}
+                placeholder={" "}
                 hook={register(input.name,{required:"All fields are required!!"})}
                 className={{ 
                   label: 'text-right !text-[14px] w-[100px]', 
