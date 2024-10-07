@@ -1,7 +1,7 @@
 "use client"
 import { SelectInput } from "@/components/inputs";
 import { calenderIcon, circleMoneyFilled } from "@/svg"
-import { OptionType } from "@/types";
+import { OptionType } from "@/d.types";
 import { useState } from "react";
 
 const StatBubble=({icon=circleMoneyFilled, period='month', percent=25, increase = true, amt='', desc='',})=>{

@@ -1,11 +1,12 @@
 "use client"
 import { plusFolderIcon, plusDocumentIcon, editIcon, duplicateIcon, emailIcon, printIcon, tagIcon, deleteIcon } from "@/svg";
-import { TableProps } from "@/types";
+import { TableProps } from "@/d.types";
 import { usePathname } from "next/navigation";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 
-type SelectedAction = 
+
+export type SelectedAction = 
   | 'New'
   | 'Add Existing'
   | 'Edit'
@@ -14,12 +15,12 @@ type SelectedAction =
   | 'Print'
   | 'Labels'
   | 'Delete'
-  | null;
+ 
 
 
 interface ActionListContextType {
-  selectedAction: SelectedAction;
-  setSelectedAction: (action: SelectedAction) => void;
+  selectedAction: SelectedAction|null;
+  setSelectedAction: (action: SelectedAction|null) => void;
   clearSelectedAction: () => void;
   table:TableProps<any>;
   setupTable:((props:TableProps<any>)=>void);
@@ -30,7 +31,7 @@ const ActionListContext = createContext<ActionListContextType | undefined>(undef
 
 // Create a provider component
 export const ActionListProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedAction, setSelectedAction] = useState<SelectedAction>(null);
+  const [selectedAction, setSelectedAction] = useState<SelectedAction|null>(null);
   const [table,setupTable] = useState<TableProps<any>>({data:[],headings:[],})
 
   const clearSelectedAction = () => setSelectedAction(null);

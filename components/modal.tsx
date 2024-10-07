@@ -1,7 +1,7 @@
 'use client'
 
 import { useClickOut } from "@/hooks"
-import { ReactChildren } from "@/types"
+import { ReactChildren } from "@/d.types"
 import { AnimatePresence,motion } from "framer-motion"
 import { useState } from "react"
 import CloseButton from "./close-button"

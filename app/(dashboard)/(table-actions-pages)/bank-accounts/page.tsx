@@ -6,7 +6,7 @@ import Modal from "@/components/modal";
 import Table from "@/components/table";
 import { fetchSWR } from "@/hooks";
 import { deleteIcon, duplicateIcon, editIcon, emailIcon, filterIcon, plusDocumentIcon, plusFolderIcon, plusIcon, printIcon, searchIcon, tagIcon } from "@/svg";
-import { InputProps } from "@/types";
+import { InputProps } from "@/d.types";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useActionContext } from "../_components/actions-list";

@@ -30,7 +30,7 @@ export const searchIcon = (
 export const circleMoneyFilled = (
     <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="26" height="26" rx="12" fill="#4D55EA"/>
-        <path d="M13 10.3129C12.0059 10.3129 11.2 10.9166 11.2 11.6614C11.2 12.4061 12.0059 13.0099 13 13.0099C13.9941 13.0099 14.8 13.6137 14.8 14.3584C14.8 15.1031 13.9941 15.7069 13 15.7069M13 10.3129C13.7837 10.3129 14.4504 10.6881 14.6976 11.2119M13 10.3129V9.41385M13 15.7069C12.2163 15.7069 11.5496 15.3317 11.3024 14.8079M13 15.7069V16.6059M13 4.01978C8.02944 4.01978 4 8.0448 4 13.0099C4 17.9749 8.02944 22 13 22C17.9705 22 22 17.9749 22 13.0099C22 12.3942 21.938 11.7928 21.82 11.2119" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M13 10.3129C12.0059 10.3129 11.2 10.9166 11.2 11.6614C11.2 12.4061 12.0059 13.0099 13 13.0099C13.9941 13.0099 14.8 13.6137 14.8 14.3584C14.8 15.1031 13.9941 15.7069 13 15.7069M13 10.3129C13.7837 10.3129 14.4504 10.6881 14.6976 11.2119M13 10.3129V9.41385M13 15.7069C12.2163 15.7069 11.5496 15.3317 11.3024 14.8079M13 15.7069V16.6059M13 4.01978C8.02944 4.01978 4 8.0448 4 13.0099C4 17.9749 8.02944 22 13 22C17.9705 22 22 17.9749 22 13.0099C22 12.3942 21.938 11.7928 21.82 11.2119" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
     </svg>
 );
 
@@ -115,15 +115,15 @@ export const tagIcon = (
 export const filterIcon = (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="20" height="20" rx="2" fill="#4D55EA"/>
-    <path d="M10 6H4" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M9 14H4" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M15 14H13" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M15 10H9" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M15 6H14" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M5 10H4" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M11 5C11.3106 5 11.4659 5 11.5885 5.03806C11.7518 5.0888 11.8816 5.18615 11.9493 5.30866C12 5.40055 12 5.51703 12 5.75V6.25C12 6.48297 12 6.59945 11.9493 6.69134C11.8816 6.81385 11.7518 6.9112 11.5885 6.96194C11.4659 7 11.3106 7 11 7C10.6894 7 10.5341 7 10.4115 6.96194C10.2482 6.9112 10.1184 6.81385 10.0507 6.69134C10 6.59945 10 6.48297 10 6.25V5.75C10 5.51703 10 5.40055 10.0507 5.30866C10.1184 5.18615 10.2482 5.0888 10.4115 5.03806C10.5341 5 10.6894 5 11 5Z" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M10 13C10.3106 13 10.4659 13 10.5885 13.038C10.7518 13.0888 10.8816 13.1862 10.9493 13.3087C11 13.4006 11 13.517 11 13.75V14.25C11 14.483 11 14.5994 10.9493 14.6913C10.8816 14.8138 10.7518 14.9112 10.5885 14.962C10.4659 15 10.3106 15 10 15C9.6894 15 9.53407 15 9.41153 14.962C9.2482 14.9112 9.1184 14.8138 9.05073 14.6913C9 14.5994 9 14.483 9 14.25V13.75C9 13.517 9 13.4006 9.05073 13.3087C9.1184 13.1862 9.2482 13.0888 9.41153 13.038C9.53407 13 9.6894 13 10 13Z" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M8 9C8.31063 9 8.46593 9 8.58847 9.03806C8.7518 9.08881 8.8816 9.18615 8.94927 9.30865C9 9.40055 9 9.51705 9 9.75V10.25C9 10.483 9 10.5994 8.94927 10.6913C8.8816 10.8138 8.7518 10.9112 8.58847 10.9619C8.46593 11 8.31063 11 8 11C7.68937 11 7.53406 11 7.41155 10.9619C7.24819 10.9112 7.11841 10.8138 7.05075 10.6913C7 10.5994 7 10.483 7 10.25V9.75C7 9.51705 7 9.40055 7.05075 9.30865C7.11841 9.18615 7.24819 9.08881 7.41155 9.03806C7.53406 9 7.68937 9 8 9Z" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10 6H4" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M9 14H4" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M15 14H13" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M15 10H9" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M15 6H14" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5 10H4" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11 5C11.3106 5 11.4659 5 11.5885 5.03806C11.7518 5.0888 11.8816 5.18615 11.9493 5.30866C12 5.40055 12 5.51703 12 5.75V6.25C12 6.48297 12 6.59945 11.9493 6.69134C11.8816 6.81385 11.7518 6.9112 11.5885 6.96194C11.4659 7 11.3106 7 11 7C10.6894 7 10.5341 7 10.4115 6.96194C10.2482 6.9112 10.1184 6.81385 10.0507 6.69134C10 6.59945 10 6.48297 10 6.25V5.75C10 5.51703 10 5.40055 10.0507 5.30866C10.1184 5.18615 10.2482 5.0888 10.4115 5.03806C10.5341 5 10.6894 5 11 5Z" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10 13C10.3106 13 10.4659 13 10.5885 13.038C10.7518 13.0888 10.8816 13.1862 10.9493 13.3087C11 13.4006 11 13.517 11 13.75V14.25C11 14.483 11 14.5994 10.9493 14.6913C10.8816 14.8138 10.7518 14.9112 10.5885 14.962C10.4659 15 10.3106 15 10 15C9.6894 15 9.53407 15 9.41153 14.962C9.2482 14.9112 9.1184 14.8138 9.05073 14.6913C9 14.5994 9 14.483 9 14.25V13.75C9 13.517 9 13.4006 9.05073 13.3087C9.1184 13.1862 9.2482 13.0888 9.41153 13.038C9.53407 13 9.6894 13 10 13Z" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M8 9C8.31063 9 8.46593 9 8.58847 9.03806C8.7518 9.08881 8.8816 9.18615 8.94927 9.30865C9 9.40055 9 9.51705 9 9.75V10.25C9 10.483 9 10.5994 8.94927 10.6913C8.8816 10.8138 8.7518 10.9112 8.58847 10.9619C8.46593 11 8.31063 11 8 11C7.68937 11 7.53406 11 7.41155 10.9619C7.24819 10.9112 7.11841 10.8138 7.05075 10.6913C7 10.5994 7 10.483 7 10.25V9.75C7 9.51705 7 9.40055 7.05075 9.30865C7.11841 9.18615 7.24819 9.08881 7.41155 9.03806C7.53406 9 7.68937 9 8 9Z" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 
@@ -138,4 +138,12 @@ export const checkIcon=(
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
   </svg>
+)
+
+
+export const solidCheckSVG = (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+    <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
+  </svg>
+
 )

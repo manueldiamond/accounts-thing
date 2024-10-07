@@ -9,15 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tw-classed/react": "^1.7.0",
     "accounts-app": "file:",
     "axios": "^1.7.7",
+    "classnames": "^2.5.1",
     "framer-motion": "^11.9.0",
     "next": "14.2.12",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "recharts": "^2.12.7",
-    "swr": "^2.2.5"
+    "swr": "^2.2.5",
+    "tailwind-variants": "^0.2.1"
   },
   "devDependencies": {
     "@types/node": "^20",

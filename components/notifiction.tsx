@@ -1,4 +1,4 @@
-import { NotificationType } from "@/types"
+import { NotificationType } from "@/d.types"
 
 
 const Notification=({text='',priority}:NotificationType)=>(

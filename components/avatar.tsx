@@ -1,4 +1,4 @@
-import { AvatarProps, avatarSizeMap } from "@/types"
+import { AvatarProps, avatarSizeMap } from "@/d.types"
 import Image from "next/image"
 
 const Avatar=({size,img}:AvatarProps)=>{

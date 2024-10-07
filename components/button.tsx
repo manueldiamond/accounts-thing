@@ -1,5 +1,5 @@
 import { checkIcon, plusIcon } from "@/svg"
-import { ButtonProps } from "@/types"
+import { ButtonProps } from "@/d.types"
 import { ForwardedRef, forwardRef } from "react"
 
 

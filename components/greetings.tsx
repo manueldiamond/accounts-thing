@@ -1,4 +1,4 @@
-import { GreetingsSectionProps, Titles } from "@/types"
+import { GreetingsSectionProps, Titles } from "@/d.types"
 import Avatar from "./avatar"
 import Notification from "./notifiction"
 

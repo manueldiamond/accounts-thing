@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation"
 import { sidebarItems } from "./sidebar"
 import { fancyChevronDown, notificationIcon, searchIcon } from "@/svg"
-import { AvatarProps } from "@/types"
+import { AvatarProps } from "@/d.types"
 import Avatar from "@/components/avatar"
 import {motion} from 'framer-motion'
 

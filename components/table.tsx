@@ -1,11 +1,20 @@
 'use client'
-import { TableRow, TableProps } from "@/types";
+import { TableRow, TableProps } from "@/d.types";
 import { AnimatePresence, motion } from "framer-motion";
+import { data } from "framer-motion/client";
 import React, { useState } from "react";
 
 // Define the type for your table rows
 
-
+const formatIfAvailable=(
+  cellName:string|number,
+  datas:TableRow,
+  formatters?:{[x:string]:Function},
+)=>{
+  return formatters&&formatters[cellName]
+        ?formatters[cellName](datas[cellName],datas.id)
+        :datas[cellName]
+}
 const CheckCircle = ({
   checked,
   onChange,
@@ -36,13 +45,16 @@ const CheckCircle = ({
 };
 
 const Table = <T extends TableRow>({
+  errored,
   fullCowling,
   headings = [],
   data = [],
   fields,
   selectable = false,
   onClickRow,
-  classNames = {}
+  classNames = {},
+  formatRows,
+  formatCells,
 }: TableProps<T>) => {
   const [selected, setSelected] = useState<T["id"][] | 'ALL'>([]);
 
@@ -61,8 +73,21 @@ const Table = <T extends TableRow>({
     });
   };
 
+  if(errored){
+    selectable=false
+    headings=[<div className="text-center">ERROR</div>],
+    classNames={
+      headerCell:"bg-red-100 text-red-500",
+      // row:"text-white bg-red-100 !hover:bg-red-200"
+    }
+    data=[{
+      id:0,
+      "message":<div className="text-center text-red-800">{typeof errored==='string'?errored:"An error occured, please try again later"}</div>
+    } as any]
+    fields=["message"]
+  }
   return (
-    <div className={`w-full grow overflow-x-auto bg-white ${classNames?.table || ''}`}>
+    <div className={`w-full grow  bg-white ${classNames?.table || ''}`}>
       <table className={`w-full text-20 h-auto ${classNames?.table || ''}`}>
         <thead className={`w-full py-2 ${classNames?.headerRow || ''}`}>
           <tr className={`bg-light-texts w-full text-left py-2 ${classNames?.row || ''}`}>
@@ -103,12 +128,12 @@ const Table = <T extends TableRow>({
                 {fields
                   ? fields.map((cellName, cellIndex) => (
                       <td className={`py-4 ${classNames?.cell || ''} ${classNames[cellName]||''} ${fullCowling?' border-inactive last:border-none border-r-[1px] border-solid ':''} `} key={cellIndex}>
-                        {row[cellName]}
+                        {formatIfAvailable(cellName,row,formatCells)}
                       </td>
                     ))
                   : Object.keys(row).map((key, cellIndex) => (
                       <td className={`py-4 ${classNames?.cell || ''} ${classNames[key]||''}   ${fullCowling?'border-r-inactive border-l-0 border-[1px] border-solid last:border-none':''}`} key={cellIndex}>
-                        {row[key]}
+                        {formatIfAvailable(key,row,formatCells,)}
                       </td>
                     ))}
               </tr>

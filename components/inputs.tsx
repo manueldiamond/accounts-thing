@@ -1,36 +1,102 @@
 "use client"
-import { useClickOut } from "@/hooks"
-import { InputProps, OptionType } from "@/types" // Assuming you have these types defined
-import React, { useState, useMemo, useEffect } from "react"
+import { useClickOut, useDebounce, useDebouncedState, useExternalState } from "@/hooks"
+import { ExternalState, InputProps, OptionType, suggestionsHookType } from "@/d.types" // Assuming you have these types defined
+import React, { useState, useMemo, useEffect, useRef, Dispatch } from "react"
 import DropDiv from "./drop-div"
-import { fancyChevronDown } from "@/svg"
+import { fancyChevronDown,solidCheckSVG } from "@/svg"
+import { cn } from "tailwind-variants"
 
 // Define types for options (for radio and select inputs)
 type BaseInputProps=Omit<Omit<InputProps,'label'>,'type'>
+
 type ExtraInputProps=Partial<{
-  customOption: (option: OptionType) => React.ReactNode;
   defaultValue: string;
-  onChange: ((e:any)=>void)|Function;
   hook: object;
   className?: string|InputClassNameType;
+  valueControls?:ExternalState<any>;
 
 }>
-type InputClassNameType = undefined | Partial<{ label:string,container: string, input: string }>
+export type InputClassNameType = undefined | Partial<{ label:string,container: string, input: string, dropdown:string,}>
 type InputPropsFull = InputProps&Omit<ExtraInputProps,'className'>&Partial<{
-  error:{message:string,[x:string]:string};
+  error:any;
   className: string|InputClassNameType;
   register?:Function,
+  
+  /** from React Hook Form*/
   setValue?:Function,
 }>
-type RadioInputsProps=BaseInputProps&ExtraInputProps
-type SelectInputProps=RadioInputsProps&{icon?:React.JSX.Element}
 
-const solidCheckSVG = (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-    <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
-  </svg>
+type RadioInputsProps=BaseInputProps&ExtraInputProps&{
+  options:OptionType[]
+}
 
-)
+type SelectInputProps=RadioInputsProps&{
+  icon?:React.JSX.Element
+  formatSelected?:(selected:any)=>string|number|void;
+  openControls?:ExternalState<boolean>;
+} 
+
+type SuggestionsInputProps = Omit<SelectInputProps,'options'>&{
+  useSuggestions:suggestionsHookType
+  numbers?:boolean;
+  
+}
+
+export const SuggestionsInput=({className,name,formatSelected,defaultValue,customOption,useSuggestions,placeholder,valueControls,numbers}:SuggestionsInputProps)=>{
+  const InputclassName = typeof className ==='string' ?{ input: className}:className as InputClassNameType;
+  const [value,setValue,] = useExternalState(valueControls,defaultValue||"")
+  const debouncedValue=useDebounce(value ,300)
+  console.log(debouncedValue)
+  const [showingSuggestions,setShowingSuggestions] = useState(false)
+
+  const [editing,setEditing] = useState(false)
+
+  const options = useSuggestions(debouncedValue)
+
+  useEffect(()=>{
+    setShowingSuggestions(Boolean((options?.length>0) && !!debouncedValue?.length))
+  },[options,debouncedValue])
+  
+  const textInputRef=useRef<HTMLInputElement>(null)
+  
+  return(
+    <div 
+      onClick={()=>setEditing(true)} 
+      className={`${!value ? 'text-black/50' : 'text-head'} w-auto border hover:border-base/40 border-inactive rounded-[4px] lg cursor-pointer relative flex  ${InputclassName?.input} `}
+    >
+      {!editing?
+        <div className="`bg-transparent flex-1 w-full min-h-full pl-4">
+          {(formatSelected?formatSelected(value):value) as string|number}
+        </div>
+      :
+        <input 
+          autoFocus
+          onBlur={()=>setEditing(false)}
+          type={numbers?'number':"text"} 
+          value={value||""} 
+          ref={textInputRef} 
+          placeholder={placeholder} 
+          onChange={e=>setValue(e.target.value)} 
+          className={`bg-transparent flex-1 w-full h-full pl-4`} 
+        />
+      }
+      <SelectInput
+        formatSelected={()=>""}
+        name={name}
+        defaultValue={value}
+        className={{
+          ...InputclassName, 
+          input:"!border-none max-h-none max-w-min !py-0 ",
+          dropdown:"min-w-max"
+        }}
+        options={options} 
+        customOption={customOption}
+        valueControls={[value,setValue]}
+        openControls={[showingSuggestions,setShowingSuggestions]}
+      />
+    </div>
+  )
+}
 
 export const RadioInputs = ({
   name,
@@ -39,9 +105,10 @@ export const RadioInputs = ({
   hook,
   customOption,
   defaultValue,
-  className
+  className,
+  valueControls
 }: RadioInputsProps) => {
-  const [selected, setSelected] = useState<string | null>(defaultValue ?? placeholder ?? null);
+  const [selected, setSelected] = useExternalState<string | null>(valueControls,defaultValue ?? placeholder ?? null);
   const InputclassName = typeof className ==='string' ?{ container: className}:className as InputClassNameType;
 
   return (
@@ -81,17 +148,22 @@ export const SelectInput = ({
   placeholder,
   customOption,
   defaultValue,
-  onChange,
   icon,
   className,
+  formatSelected,
+  openControls,
+  valueControls:selectedControls,
 }: SelectInputProps) => {
-  const [selected, setSelected] = useState<string |number| null>(defaultValue ?? placeholder ?? null);
-  const [opened, setOpen] = useState(false);
+
+  const [selected, setSelected] = useExternalState<string |number| null>(selectedControls,defaultValue ?? placeholder ?? null);
+  const [opened, setOpen] = useExternalState(openControls,false,);
+
 
   const open = () => setOpen(true);
   const close = () => setOpen(false);
 
   const ref = useClickOut(close, opened);
+
   type OptionValueType = { value:string|number, displayLabel:string , data: OptionType }
   const optionValuesObject:OptionValueType[] = useMemo(() => options?.map((option: OptionType) => {
     const value = typeof option === 'string' ? option : option.value;
@@ -100,25 +172,24 @@ export const SelectInput = ({
   }), [options]);
 
   useEffect(() => {
-    if (!optionValuesObject?.find(({ value }:OptionValueType) => value === selected)) {
-      setSelected(placeholder ?? null);
-    }
- 
-    onChange?.(selected);
-    close();
+    if(!selectedControls)
+      if (!optionValuesObject?.find(({ value }:OptionValueType) => value === selected)) {
+        setSelected(placeholder ?? null);
+      }
+      close();
   }, [selected]);
 
   const InputclassName = typeof className ==='string' ?{ container: className}:className as InputClassNameType;
 
 
-  return ( 
-    <div onClick={open} className={`${InputclassName?.input} ${!selected ? 'text-black/50' : 'text-head'} w-auto border hover:border-base/40 border-inactive p-4 rounded-[4px] lg cursor-pointer relative`}>
+  return (
+    <div onClick={open} className={`${!selected ? 'text-black/50' : 'text-head'} w-auto border hover:border-base/40 border-inactive p-4 rounded-[4px] lg cursor-pointer relative ${InputclassName?.input}`}>
       <div className={`flex justify-between items-center w-full ${""}`}>
         {icon}
-        <span className="flex-1 text-left">{selected ?? 'Select'}</span>
+        <span className="flex-1 text-left">{(formatSelected?formatSelected(optionValuesObject?.find(({value})=>value===selected)):selected) ?? 'Select'}</span>
         <span className="flex centered size-5">{fancyChevronDown}</span>
       </div>
-      <DropDiv ref={ref} className="bg-white absolute top-[calc(100%+1rem)] z-50 left-0 w-full shadow-[0px_20px_66px_0px_#22304933] flex flex-col gap-1 p-3 rounded-[4px] xl" opened={opened}>
+      <DropDiv ref={ref} className={`bg-white absolute top-[calc(100%+ 0.2rem)] z-50 left-0 w-full shadow-[0px_20px_66px_0px_#22304933] flex flex-col gap-1 p-3 rounded-[4px] xl ${InputclassName?.dropdown}`} opened={opened}>
         {optionValuesObject?.map(({ value, data, displayLabel }:OptionValueType) => (
           <div
             key={value}
@@ -132,7 +203,7 @@ export const SelectInput = ({
           </div>
         ))}
       </DropDiv>
-    </div>
+    </div>  
   );
 };
 
@@ -141,18 +212,31 @@ export const Input = ({
   type,
   label,
   options,
+  useSuggestions,
   customOption,
   placeholder,
   error,
   hook,
   register,
-  setValue,
+  setValue:RHFsetValue,
   defaultValue,
-  onChange,
   className,
+  valueControls,
+  numbers,required
 }: InputPropsFull) => {
-  if(register&&!hook) hook=register(name)
-  if(setValue&&!onChange) onChange=(val)=>setValue(name,val)
+    
+  const state=useExternalState(valueControls,defaultValue)
+  const [value,setValue]=state
+  if(register&&!hook) 
+    hook=register(name,{required});
+
+  useEffect(()=>{
+    if(RHFsetValue)
+      if(type==='suggestions'||type==='option'||!hook)
+        RHFsetValue(name,value)
+  },[value])
+   
+
   const InputclassName = typeof className ==='string' ?{ container: className}:className as InputClassNameType;
   const I = type==='textarea'?'textarea':'input';
   return (
@@ -169,6 +253,7 @@ export const Input = ({
           placeholder={placeholder}
           defaultValue={defaultValue}
           hook={hook}
+          valueControls={state}
           className={className}
         />
       ) : type === "option" ? (
@@ -178,20 +263,37 @@ export const Input = ({
           options={options!}
           placeholder={placeholder}
           defaultValue={defaultValue}
-          onChange={onChange}
+          valueControls={state}
           className={className}
 
         />
-      ) : (
+      ) : type === 'suggestions'?(
+        <SuggestionsInput
+          numbers={numbers} 
+          customOption={customOption}
+          name={name}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          className={className}
+          valueControls={state}
+          useSuggestions={useSuggestions!}
+        />
+      ):(
         <I
           className={`text-left w-auto px-6 py-4 border border-gray-300 p-4 rounded-[4px] xl text-base ${InputclassName?.input}`}
           type={type as string }
           id={name}
           placeholder={placeholder ?? `Enter your ${name.toLowerCase()}`}
           defaultValue={defaultValue}
+          value={value}
+          onChange={e=>setValue(e.target.value)}
           {...hook}
         />
       )}
     </div>
   );
 };
+
+const InputContainer=({className=''})=>{
+  return <></>//TODO: Implemet Later
+}

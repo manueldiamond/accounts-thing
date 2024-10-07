@@ -1,4 +1,4 @@
-import { ReactChildren } from "@/types"
+import { ReactChildren } from "@/d.types"
 import Header from "./_components/header"
 import SideBar from "./_components/sidebar"
 

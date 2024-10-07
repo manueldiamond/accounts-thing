@@ -1,5 +1,6 @@
+import exp from "constants";
 import { title } from "process";
-import React, { HTMLInputTypeAttribute } from "react";
+import React, { Dispatch, HTMLInputTypeAttribute } from "react";
 
 export type Priorities='Mild' | 'Severe' | 'Normal';
 
@@ -7,7 +8,7 @@ export type Priorities='Mild' | 'Severe' | 'Normal';
 export type ReactChildren={
     children?:React.ReactNode;
 }
-
+export type ExternalState<T>=[T,Dispatch<T>]
 
 export type AvatarSizes = 'xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
@@ -124,32 +125,44 @@ export type OptionType=
     [x:string]:any
   }
 
+export type suggestionsHookType=(inputValue:string)=>OptionType[]
 export type InputProps={
+  required?:boolean|string;
   name:string
   placeholder?:any
   label?:string;
-}&({
-  type:HTMLInputTypeAttribute|'textarea';
-  options?:any;
-}|{
-  type:'option'|'radio'
-  options:OptionType[],
 
-})
+  type:HTMLInputTypeAttribute|'textarea'|'option'|'radio'|'suggestions';
+  options?:OptionType[],
+  useSuggestions?:suggestionsHookType,
 
+  numbers?:boolean,
+  customOption?: (option: OptionType) => React.ReactNode;
+
+}
+
+export type InputsTableDataType = Record<string|number,TableRow>
 
 export type TableRow = { 
   id: string | number;
   [key: string]: string | number | React.JSX.Element;
 };
 
+export type TableFormatCellsType<T extends TableRow>={
+  [key: string]: (cellValue:T[string],cellID:string|number)=>string|number|React.JSX.Element;
+};
+
+
 export interface TableProps<T extends TableRow> {
   headings: (string | React.JSX.Element)[];
-  data: T[];
+  data?: T[];
   fields?: string[];
   onClickRow?: (row: T) => void;
   selectable?: boolean;
   fullCowling?: boolean;
+  errored?:boolean|string;
+  formatCells?:TableFormatCellsType<T>
+  formatRows?:(cell:T)=>string|React.JSX.Element;
   classNames?: Partial<{
     table: string;
     row: string;
@@ -157,4 +170,44 @@ export interface TableProps<T extends TableRow> {
     headerCell: string;
     [key: string]: string;
   }>;
+}
+
+
+// DATABASE TYPES
+
+
+
+
+
+
+// Enum for account types
+export enum AccountTypes {
+  Cash = 'Cash',
+  Bank = 'Bank',
+  General = 'General',
+}
+
+// Enum for statuses
+export enum Statuses {
+  Active = 'Active',
+  Inactive = 'Inactive',
+}
+
+// Interface for account headers
+export interface AccountHeader {
+  id: number;                       // Primary key
+  description: string;              // Description of the account
+  status: Statuses;                 // Status of the account
+  type: AccountTypes;               // Type of account
+  datecreated: string;              // Timestamp of creation in ISO format
+}
+
+// Interface for account postings
+export interface AccountPosting {
+  id: number //posting_id primarykey;
+  account_id: number;               // Foreign key referencing account_headers
+  description: string;              // Description of the posting
+  credit: number;                   // Amount credited
+  debit: number;                    // Amount debited
+  date: string;                     // Timestamp of creation in ISO format
 }

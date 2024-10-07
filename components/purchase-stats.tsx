@@ -1,4 +1,4 @@
-import { StatsProps } from "@/types"
+import { StatsProps } from "@/d.types"
 import Image from "next/image"
 import PercentNotice from "./percent-notice"
 

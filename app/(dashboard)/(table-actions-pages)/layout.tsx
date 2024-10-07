@@ -1,11 +1,12 @@
 
 "use client"
 
-import { ReactChildren } from "@/types";
 import ActionList, { ActionListProvider, useActionContext } from "./_components/actions-list";
 import { useMemo } from "react";
 import { filterIcon, searchIcon } from "@/svg";
 import Table from "@/components/table";
+import { ReactChildren } from "@/d.types";
+
 
 
 

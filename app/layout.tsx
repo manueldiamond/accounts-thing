@@ -18,9 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${sourceSans.variable} ${worksSans.variable} ${sourceSans.className} antialiased`}
-      >
+      <body className={`${sourceSans.variable} ${worksSans.variable} ${sourceSans.className} antialiased`}>
         {children}
       </body>
     </html>

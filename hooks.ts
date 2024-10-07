@@ -1,7 +1,12 @@
-import { RefObject, useEffect, useMemo, useRef, useState } from "react"
+import React, { RefObject, useEffect, useMemo, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import useSWR from "swr"
+import { backend, parseURL } from "./utils"
+import { AccountHeader, ExternalState, suggestionsHookType } from "./d.types"
+
+export const useExternalState=<T>(externalStateValue:ExternalState<T>|undefined,stateValue:T)=>
+    externalStateValue||useState(stateValue)
 
 export const useObjectState=<k extends string,v>(obj:Record<k,v>)=>{
     type T = Record<k,v>
@@ -20,6 +25,29 @@ export const useObjectState=<k extends string,v>(obj:Record<k,v>)=>{
     
     return [state, editState] as [T,typeof editState]
 }
+
+
+export const useDebounce = <T>(value: T, delay: number) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+  
+    useEffect(() => {
+      const handler = setTimeout(() => {
+          setDebouncedValue(value);
+      }, delay);
+  
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [value, delay]);
+  
+    return debouncedValue;
+  };
+  
+export const useDebouncedState=<T>(value:T,delay:number):[T,React.Dispatch<T>,T]=>{
+    const [stateValue,setStateValue] = useState(value)
+    const deValue = useDebounce(stateValue,delay)
+    return [stateValue,setStateValue,deValue]
+} 
 
 export const useClickOut=(onOutClickFunction:Function,deps:any[]|boolean,ref?:RefObject<any>)=>{
     const maindiv = ref??useRef<any>(null)
@@ -65,12 +93,39 @@ export const useClickOut=(onOutClickFunction:Function,deps:any[]|boolean,ref?:Re
 
 
 
+const fetcher = (url:string) => axios.get(url).then(res => res.data).catch((e:AxiosError)=>Promise.reject(e.message));
 
-const fetcher = (url:string) => axios.get(url).then(res => res.data);
-
-export const fetchSWR = (url = '',params?: Record<string, any>) => {
-    const urlObj = new URL(url, 'localhost:8080')
-    if (params)
-      Object.keys(params).forEach(key => params[key]&&urlObj.searchParams.set(key, params[key]))
+export const fetchSWR = (url = '', params?: Record<string, any>, origin?:string) => {
+    const urlObj=useMemo(()=>parseURL(url,params,origin),[url,params,origin])
     return useSWR(urlObj.href, fetcher)
+}
+
+
+export const useAccountHeaders=()=>{
+    const {data,error,isLoading} = fetchSWR("api/accounts");
+    
+    return {
+      data:data as AccountHeader[]|undefined,
+      error:error as string
+    }
+  }
+
+export const useSearchAccountHeaders:suggestionsHookType=(search)=>{
+    const {data,error} = useAccountHeaders(); //fetchSWR("api/accounts/search");
+
+    const options = useMemo(()=>
+        !data?[
+            {label:"Goood",value:1000},
+            {label:"Foood",value:2000},
+            {label:"Poood",value:4000},
+            {label:"Stoood",value:5000},
+        ]:(!search?data:data.filter(({id})=>String(id).includes(search))).map(
+        (accountHeader)=>({
+            label:accountHeader.description,
+            value:accountHeader.id
+        })
+    )
+    ,[data,search])
+      
+    return options
 }
